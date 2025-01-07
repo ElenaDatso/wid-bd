@@ -1,0 +1,14 @@
+{
+  "name": "wid-bd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Olena Datso",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "firebase": "^11.1.0"
+  }
+}
