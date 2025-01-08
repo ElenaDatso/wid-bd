@@ -4,16 +4,9 @@ import {
   onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js';
 import authFuncs from './index.js';
-const { signIn, signOutFunc, createUser } = authFuncs;
+import { firebaseConfig } from './firebaseConfig.js';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyAy12gZWIAZT4-ox-uJxms3N_lW95qFXCg',
-  authDomain: 'wit-bd.firebaseapp.com',
-  projectId: 'wit-bd',
-  storageBucket: 'wit-bd.firebasestorage.app',
-  messagingSenderId: '705310372906',
-  appId: '1:705310372906:web:c561da6d410cfbbe2a3f53',
-};
+const { signIn, signOutFunc, createUser } = authFuncs;
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
@@ -21,6 +14,7 @@ const auth = getAuth(firebaseApp);
 const logOutBtn = document.getElementById('logout-btn');
 
 let ifLoggedIn = null;
+
 onAuthStateChanged(auth, (user) => {
   ifLoggedIn = user;
   console.log('ifLoggedIn', user);
@@ -28,12 +22,13 @@ onAuthStateChanged(auth, (user) => {
 
 const onButtonAction = async (condition, cb) => {
   if (condition) {
-    const result = await cb();
-    if (result) {
-      ifLoggedIn = !condition;
-    }
+    await cb();
+    onAuthStateChanged(auth, (user) => {
+      ifLoggedIn = user;
+      console.log('ifLoggedIn', user);
+    });
   } else {
-    console.log('logged in = ', ifLoggedIn);
+    console.log('logged in = ', ifLoggedIn, 'action not permited');
   }
 };
 
