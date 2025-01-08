@@ -11,8 +11,6 @@ const { signIn, signOutFunc, createUser } = authFuncs;
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
-const logOutBtn = document.getElementById('logout-btn');
-
 let ifLoggedIn = null;
 
 onAuthStateChanged(auth, (user) => {
@@ -53,6 +51,8 @@ if (
     });
   }
 } else {
+  const logOutBtn = document.getElementById('logout-btn');
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log('User is signed in:', user.email);
@@ -62,11 +62,12 @@ if (
       console.log('No user is signed in.');
     }
   });
+    if (logOutBtn) {
+      logOutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        onButtonAction(ifLoggedIn, signOutFunc);
+      });
+    }
 }
-
-logOutBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  onButtonAction(ifLoggedIn, signOutFunc);
-});
 
 export default { firebaseApp, auth };
