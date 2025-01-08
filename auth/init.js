@@ -22,11 +22,11 @@ onAuthStateChanged(auth, (user) => {
 
 const onButtonAction = async (condition, cb) => {
   if (condition) {
-    await cb();
-    onAuthStateChanged(auth, (user) => {
-      ifLoggedIn = user;
-      console.log('ifLoggedIn', user);
-    });
+    try {
+      cb();
+    } catch (e) {
+      console.log(e);
+    }
   } else {
     console.log('logged in = ', ifLoggedIn, 'action not permited');
   }
@@ -40,16 +40,16 @@ if (
   const loginBtn = document.getElementById('login-subm');
 
   if (regBtn) {
-    regBtn.addEventListener('click', async (e) => {
+    regBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      await onButtonAction(!ifLoggedIn || ifLoggedIn, createUser);
+      onButtonAction(!ifLoggedIn || ifLoggedIn, createUser);
     });
   }
 
   if (loginBtn) {
-    loginBtn.addEventListener('click', async (e) => {
+    loginBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      await onButtonAction(!ifLoggedIn, signIn);
+      onButtonAction(!ifLoggedIn, signIn);
     });
   }
 } else {
@@ -64,9 +64,9 @@ if (
   });
 }
 
-logOutBtn.addEventListener('click', async (e) => {
+logOutBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  await onButtonAction(ifLoggedIn, signOutFunc);
+  onButtonAction(ifLoggedIn, signOutFunc);
 });
 
 export default { firebaseApp, auth };
