@@ -53,13 +53,13 @@ const great = document.getElementById('greating');
 const daysUntil = document.getElementById('daysUntill');
 const contentContainer = document.getElementById('content');
 
-if (great) great.innerText = 'Hi, ' + userData.username + '!';
+if (great) great.innerText = daysUntilBd ? 'Hi, ' + userData.username + '!' : '';
 if (daysUntil) {
   daysUntil.innerText = daysUntilBd
     ? 'It is ' +
       daysUntilBirthday(userData.birth) +
-      ' days until your birthday!'
-    : 'Happy birthday!';
+      ' days left until your birthday!'
+    : 'Happy birthday, ' + userData.username + '!';
 
   if (!daysUntilBd) {
     const image = document.createElement('img');
