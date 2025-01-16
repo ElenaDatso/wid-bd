@@ -1,5 +1,4 @@
 import {
-  auth,
   signIn,
   createUser,
   signOutFunc,
@@ -13,8 +12,7 @@ const spinContainer = document.getElementById('spin-container');
 
 const ifLogged = await getAuthState()
   .then((data) => data)
-  .catch((e) => console.log(e));
-console.log(ifLogged);
+  .catch((e) => console.error(e));
 if (
   (ifLogged && window.location.pathname === '/') ||
   (ifLogged && window.location.pathname === '/index.html')
@@ -28,7 +26,7 @@ if (!ifLogged && window.location.pathname === '/pages/signedin.html') {
 const userData = ifLogged
   ? await getUserData(ifLogged.uid)
       .then((data) => data)
-      .catch((e) => console.log(e))
+      .catch((e) => console.error(e))
   : null;
 
 const daysUntilBd = ifLogged && daysUntilBirthday(userData.birth);

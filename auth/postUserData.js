@@ -12,7 +12,6 @@ async function postUserData(user) {
       email: user.email,
       birth: user.birth
     });
-    console.log('result', result);
     return true;
   } catch (e) {
     console.error(e);

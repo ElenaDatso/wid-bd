@@ -1,6 +1,5 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js';
-import { auth } from './initAuthApp.js';
-import { postUserData } from './index.js';
+import { auth, postUserData } from './index.js';
 
 const emailInp = document.getElementById('email-reg');
 const nameInp = document.getElementById('name-reg');
@@ -48,30 +47,30 @@ const createUser = async () => {
     if (result) {
       window.location.href = './pages/signedin.html';
     } else {
-      console.log('Failed to save user data, not redirecting.');
+      console.error('Failed to save user data, not redirecting.');
     }
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
     if (errorCode === 'auth/email-already-in-use') {
-      console.log(
+      console.error(
         error.code,
         'Error: The email address is already in use by another account.'
       );
       emailpasswError.innerText = 'The email address is already in use.';
     } else if (errorCode === 'auth/invalid-email') {
-      console.log('Error: Invalid email address.');
+      console.error('Error: Invalid email address.');
       emailpasswError.innerText = 'Invalid email address.';
     } else if (errorCode === 'auth/weak-password') {
-      console.log('Error: Weak password.');
+      console.error('Error: Weak password.');
       passwError.innerText = 'Password is too weak.';
     } else {
-      console.log('Unexpected error:', errorCode, errorMessage);
+      console.error('Unexpected error:', errorCode, errorMessage);
       passwError.innerText = 'Unexpected error.';
     }
   }
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 
 };

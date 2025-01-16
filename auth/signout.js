@@ -1,12 +1,11 @@
 import { signOut } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js';
-import { auth } from './initAuthApp.js';
+import { auth } from './index.js';
 
 
 
 const signOutFunc = async () => {
   signOut(auth)
     .then(() => {
-      console.error('User loged out successfully');
       window.location.href = '../index.html';
       return true
     })

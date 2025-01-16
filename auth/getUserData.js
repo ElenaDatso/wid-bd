@@ -11,10 +11,9 @@ const getUserData = async (uid) => {
   try {
     const snapshot = await get(child(db, `users/${uid}`));
     if (snapshot.exists()) {
-      console.log(snapshot.val())
       return snapshot.val();
     } else {
-      console.log('no data available');
+      console.error('no data available');
       return null;
     }
   } catch (e) {

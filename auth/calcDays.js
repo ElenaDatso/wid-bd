@@ -28,7 +28,6 @@ function daysUntilBirthday(birthDateString) {
   const ifBdNextMonth = currMonth <= bdMonth;
   const ifBdFutureDay = currDay < bdDay;
   const ifBdThisYear = ifBdNextMonth && ifBdFutureDay;
-  console.log(ifBdThisYear);
 
   let diff = null;
   if (currMonth === bdMonth && currDay === bdDay) {
