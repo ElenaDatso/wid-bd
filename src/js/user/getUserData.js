@@ -20,5 +20,4 @@ const getUserData = async (uid) => {
     console.error(e);
   }
 }
-
 export default getUserData;

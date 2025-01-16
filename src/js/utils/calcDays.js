@@ -43,5 +43,4 @@ function daysUntilBirthday(birthDateString) {
   }
   return milSecToDays(diff);
 }
-
 export default daysUntilBirthday;

@@ -5,7 +5,7 @@ import {
   getAuthState,
   getUserData,
   daysUntilBirthday,
-} from './auth/index.js';
+} from './src/js/index.js';
 
 const mainContainer = document.getElementById('main-container');
 const spinContainer = document.getElementById('spin-container');
@@ -13,6 +13,7 @@ const spinContainer = document.getElementById('spin-container');
 const ifLogged = await getAuthState()
   .then((data) => data)
   .catch((e) => console.error(e));
+
 if (
   (ifLogged && window.location.pathname === '/') ||
   (ifLogged && window.location.pathname === '/index.html')
@@ -62,7 +63,7 @@ if (daysUntil) {
 
   if (!daysUntilBd) {
     const image = document.createElement('img');
-    image.src = '../images/wiseman.png';
+    image.src = '../src/images/wiseman.png';
     const imgCls = ['w-100'];
     image.classList.add(...imgCls);
     image.style['maxWidth'] = '300px';
@@ -106,4 +107,5 @@ document.addEventListener('keydown', async (e) => {
 
 regBtn && regBtn.addEventListener('click', async () => await createUser());
 loginBtn && loginBtn.addEventListener('click', async () => await signIn());
-logOutBtn && logOutBtn.addEventListener('click', async () => await signOutFunc());
+logOutBtn &&
+  logOutBtn.addEventListener('click', async () => await signOutFunc());
