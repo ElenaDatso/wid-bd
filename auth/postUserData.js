@@ -13,8 +13,10 @@ async function postUserData(user) {
       birth: user.birth
     });
     console.log('result', result);
+    return true;
   } catch (e) {
     console.error(e);
+    return false;
   }
 }
 

@@ -25,21 +25,37 @@ https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css
     <script type="module" src="../index.js" defer></script>
     <title>Logged in user page</title>
   </head>
-  <body>
+  <body
+    style="font-family: 'Poppins', serif; height: 100vh"
+    class="d-flex flex-column justify-content-center"
+  >
     <div id="spin-container" class="spin-holder">
       <span class="loader"></span>
       <span class="loader2">Loading</span>
     </div>
-    <div id="main-container" class="container d-flex flex-column-reverse flex-sm-column align-items-center d-none text-white">
-      <div style="margin-top: 2rem" class="d-flex justify-content-end align-self-center align-self-sm-end">
+    <div
+      id="main-container"
+      style="height: 100vh;"
+      class="container d-flex flex-column-reverse flex-sm-column align-items-center d-none text-white"
+    >
+      <div
+        style="margin-top: 2rem"
+        class="d-flex justify-content-end align-self-center align-self-sm-end"
+      >
         <button id="logout-btn" type="button" class="btn btn-outline-light">
           Log out
         </button>
       </div>
-      <div class="container text-center justify-content-center align-items-center flex-column mt-5">
+      <div
+        class="container text-center justify-content-center align-items-center flex-column mt-5"
+      >
         <p class="fs-3 fw-bold" id="greating">Hi User!</p>
         <p class="fs-1 fw-bold" id="daysUntill">Days</p>
-        <div id="content" style="width: fit-content;" class="d-flex flex-column justify-content-center mx-auto" ></div>
+        <div
+          id="content"
+          style="width: fit-content"
+          class="d-flex flex-column justify-content-center mx-auto"
+        ></div>
       </div>
     </div>
   </body>

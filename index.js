@@ -11,34 +11,37 @@ import {
 const mainContainer = document.getElementById('main-container');
 const spinContainer = document.getElementById('spin-container');
 
-
-
-const ifLogged = await getAuthState().then(data => data).catch(e => console.log(e));
+const ifLogged = await getAuthState()
+  .then((data) => data)
+  .catch((e) => console.log(e));
 console.log(ifLogged);
 if (
   (ifLogged && window.location.pathname === '/') ||
   (ifLogged && window.location.pathname === '/index.html')
 ) {
-  // window.location.href = './pages/signedin.html';
+  window.location.href = './pages/signedin.html';
 }
-if (
-  (!ifLogged && window.location.pathname === '/pages/signedin.html')
-) {
+if (!ifLogged && window.location.pathname === '/pages/signedin.html') {
   window.location.href = '../index.html';
 }
 
-const userData = ifLogged ? await getUserData(ifLogged.uid).then(data => data).catch(e => console.log(e)) : null;
+const userData = ifLogged
+  ? await getUserData(ifLogged.uid)
+      .then((data) => data)
+      .catch((e) => console.log(e))
+  : null;
 
 const daysUntilBd = ifLogged && daysUntilBirthday(userData.birth);
-const phrase = await fetch('https://api.adviceslip.com/advice')
-  .then((data) => data.json())
-  .then((data) => data.slip.advice)
-  .catch((e) => console.error(e));
-
+let phrase = '';
+if (ifLogged && userData) {
+  phrase = await fetch('https://api.adviceslip.com/advice')
+    .then((data) => data.json())
+    .then((data) => data.slip.advice)
+    .catch((e) => console.error(e));
+}
 
 mainContainer?.classList.remove('d-none');
 spinContainer?.classList.add('d-none');
-
 
 const toLogin = document.getElementById('redir-to-login');
 const toReg = document.getElementById('redir-to-reg');
@@ -74,7 +77,7 @@ if (daysUntil) {
       'position-sm-absolute',
       'end-0',
       'rounded-3',
-      'p-2'
+      'p-2',
     ];
     phraseBlock.style['maxWidth'] = '600px';
     phraseBlock.classList.add(...phraseCls);
@@ -96,13 +99,13 @@ toLogin?.addEventListener('click', () => {
 toReg?.addEventListener('click', () => {
   toggleClasses();
 });
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter') {
-    if (regBtn && !regBtn.className.includes('d-non')) createUser();
-    if (loginBtn && !loginBtn.className.includes('d-none')) signIn();
+document.addEventListener('keydown', async (e) => {
+  if (e.key === 'Enter') {
+    if (regBtn && !regBtn.className.includes('d-non')) await createUser();
+    if (loginBtn && !loginBtn.className.includes('d-none')) await signIn();
   }
 });
 
-regBtn?.addEventListener('click', createUser);
-loginBtn?.addEventListener('click', signIn);
-logOutBtn?.addEventListener('click', signOutFunc);
+regBtn && regBtn.addEventListener('click', async () => await createUser());
+loginBtn && loginBtn.addEventListener('click', async () => await signIn());
+logOutBtn && logOutBtn.addEventListener('click', async () => await signOutFunc());

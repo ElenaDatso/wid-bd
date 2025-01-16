@@ -6,7 +6,7 @@ import { auth } from './initAuthApp.js';
 const signOutFunc = async () => {
   signOut(auth)
     .then(() => {
-      console.log('User loged out successfully');
+      console.error('User loged out successfully');
       window.location.href = '../index.html';
       return true
     })
