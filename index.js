@@ -6,7 +6,8 @@ import {
   getUserData,
   daysUntilBirthday,
   getPhrase,
-  verifyLocation
+  verifyLocation,
+  toggleClasses
 } from './src/js/index.js';
 
 const mainContainer = document.getElementById('main-container');
@@ -41,51 +42,12 @@ if (ifLogged && userData && !daysUntilBd) {
 mainContainer?.classList.remove('d-none');
 spinContainer?.classList.add('d-none');
 
-
-if (great) great.innerText = daysUntilBd ? 'Hi, ' + userData.username + '!' : '';
-if (daysUntil) {
-  daysUntil.innerText = daysUntilBd
-    ? 'It is ' +
-      daysUntilBirthday(userData.birth) +
-      ' days left until your birthday!'
-    : 'Happy birthday, ' + userData.username + '!';
-
-  if (!daysUntilBd) {
-    const image = document.createElement('img');
-    image.src = '../src/images/wiseman.png';
-    const imgCls = ['w-100'];
-    image.classList.add(...imgCls);
-    image.style['maxWidth'] = '300px';
-
-    const phraseBlock = document.createElement('p');
-    phraseBlock.innerText = phrase;
-    const phraseCls = [
-      'text-black',
-      'bg-white',
-      'position-sm-absolute',
-      'end-0',
-      'rounded-3',
-      'p-2',
-    ];
-    phraseBlock.style['maxWidth'] = '600px';
-    phraseBlock.classList.add(...phraseCls);
-
-    contentContainer.append(phraseBlock);
-    contentContainer.append(image);
-  }
-}
-const toggleClasses = () => {
-  loginForm.classList.toggle('d-none');
-  regFrom.classList.toggle('d-none');
-  loginBtn.classList.toggle('d-none');
-  regBtn.classList.toggle('d-none');
-};
 toLogin?.addEventListener('click', () => {
-  toggleClasses();
+  toggleClasses(loginForm, regFrom, loginBtn, regBtn);
 });
 
 toReg?.addEventListener('click', () => {
-  toggleClasses();
+  toggleClasses(loginForm, regFrom, loginBtn, regBtn);
 });
 document.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {

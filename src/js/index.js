@@ -8,6 +8,7 @@ import getUserData from './user/getUserData.js';
 import daysUntilBirthday from './utils/calcDays.js';
 import getPhrase from './api/getPhrase.js';
 import verifyLocation from './session/varifyLocation.js';
+import toggleClasses from './utils/toggleClasses.js';
 
 export {
   auth,
@@ -19,5 +20,6 @@ export {
   getUserData,
   daysUntilBirthday,
   getPhrase,
-  verifyLocation
+  verifyLocation,
+  toggleClasses
 };
