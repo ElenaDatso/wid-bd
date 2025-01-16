@@ -9,6 +9,7 @@ import daysUntilBirthday from './utils/calcDays.js';
 import getPhrase from './api/getPhrase.js';
 import verifyLocation from './session/varifyLocation.js';
 import toggleClasses from './utils/toggleClasses.js';
+import getContent from './content/getContent.js';
 
 export {
   auth,
@@ -21,5 +22,6 @@ export {
   daysUntilBirthday,
   getPhrase,
   verifyLocation,
-  toggleClasses
+  toggleClasses,
+  getContent
 };

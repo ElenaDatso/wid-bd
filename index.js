@@ -7,7 +7,8 @@ import {
   daysUntilBirthday,
   getPhrase,
   verifyLocation,
-  toggleClasses
+  toggleClasses,
+  getContent,
 } from './src/js/index.js';
 
 const mainContainer = document.getElementById('main-container');
@@ -20,9 +21,6 @@ const regFrom = document.getElementById('reg-form');
 const regBtn = document.getElementById('reg-subm');
 const loginBtn = document.getElementById('login-subm');
 const logOutBtn = document.getElementById('logout-btn');
-const great = document.getElementById('greating');
-const daysUntil = document.getElementById('daysUntill');
-const contentContainer = document.getElementById('content');
 
 const ifLogged = await getAuthState();
 
@@ -32,12 +30,8 @@ const userData = ifLogged
   ? await getUserData(ifLogged.uid)
   : null;
 
-const daysUntilBd = ifLogged && daysUntilBirthday(userData.birth);
+ifLogged && userData && await getContent(userData);
 
-let phrase = '';
-if (ifLogged && userData && !daysUntilBd) {
-  phrase = await getPhrase();
-};
 
 mainContainer?.classList.remove('d-none');
 spinContainer?.classList.add('d-none');
@@ -49,6 +43,7 @@ toLogin?.addEventListener('click', () => {
 toReg?.addEventListener('click', () => {
   toggleClasses(loginForm, regFrom, loginBtn, regBtn);
 });
+
 document.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {
     if (regBtn && !regBtn.className.includes('d-non')) await createUser();
