@@ -5,42 +5,12 @@ import {
   getAuthState,
   getUserData,
   daysUntilBirthday,
+  getPhrase,
+  verifyLocation
 } from './src/js/index.js';
 
 const mainContainer = document.getElementById('main-container');
 const spinContainer = document.getElementById('spin-container');
-
-const ifLogged = await getAuthState()
-  .then((data) => data)
-  .catch((e) => console.error(e));
-
-if (
-  (ifLogged && window.location.pathname === '/') ||
-  (ifLogged && window.location.pathname === '/index.html')
-) {
-  window.location.href = './pages/signedin.html';
-}
-if (!ifLogged && window.location.pathname === '/pages/signedin.html') {
-  window.location.href = '../index.html';
-}
-
-const userData = ifLogged
-  ? await getUserData(ifLogged.uid)
-      .then((data) => data)
-      .catch((e) => console.error(e))
-  : null;
-
-const daysUntilBd = ifLogged && daysUntilBirthday(userData.birth);
-let phrase = '';
-if (ifLogged && userData) {
-  phrase = await fetch('https://api.adviceslip.com/advice')
-    .then((data) => data.json())
-    .then((data) => data.slip.advice)
-    .catch((e) => console.error(e));
-}
-
-mainContainer?.classList.remove('d-none');
-spinContainer?.classList.add('d-none');
 
 const toLogin = document.getElementById('redir-to-login');
 const toReg = document.getElementById('redir-to-reg');
@@ -52,6 +22,25 @@ const logOutBtn = document.getElementById('logout-btn');
 const great = document.getElementById('greating');
 const daysUntil = document.getElementById('daysUntill');
 const contentContainer = document.getElementById('content');
+
+const ifLogged = await getAuthState();
+
+verifyLocation(ifLogged);
+
+const userData = ifLogged
+  ? await getUserData(ifLogged.uid)
+  : null;
+
+const daysUntilBd = ifLogged && daysUntilBirthday(userData.birth);
+
+let phrase = '';
+if (ifLogged && userData && !daysUntilBd) {
+  phrase = await getPhrase();
+};
+
+mainContainer?.classList.remove('d-none');
+spinContainer?.classList.add('d-none');
+
 
 if (great) great.innerText = daysUntilBd ? 'Hi, ' + userData.username + '!' : '';
 if (daysUntil) {
